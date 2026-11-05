@@ -20,6 +20,13 @@
     wl-clipboard
     awww
     discord
+
+    (writeShellApplication {
+      name = "wallpaper-selector";
+      runtimeInputs = [ rofi awww kitty git imagemagick findutils coreutils procps ];
+      text = builtins.readFile ./dotfiles/scripts/wallpaper-selector.sh;
+    })
+    
   ];
 
   programs.git = {
@@ -32,40 +39,13 @@
 
   programs.kitty = {
     enable = true;
-
-    font.name = "SpaceMono Nerd Font";
-    font.size = 11;
-
     settings = {
-      # Transparencia (0.0 totalmente transparente, 1.0 opaco)
-      background_opacity = 0.95;
-
-      # Desenfocar el fondo (solo funciona en algunos entornos)
       background_blur = 1;
-
-      # Margen interno de la ventana
       window_padding_width = 1;
-
-      # Colores (Catppuccin Mocha)
-      background = "#1e1e2e";
-      foreground = "#cdd6f4";
-
-      # Selección
-      selection_background = "#313244";
-      selection_foreground = "#cdd6f4";
-
-      # Cursor
-      cursor = "#f5e0dc";
       cursor_shape = "beam";
       cursor_blink_interval = 0.5;
-
-      # Ocultar la barra de título nativa
       hide_window_decorations = true;
-
-      # Recordar el tamaño de la ventana anterior
       remember_window_size = true;
-
-      # Desactivar el pitido del sistema
       enable_audio_bell = false;
     };
   };
@@ -77,5 +57,23 @@
     config.lib.file.mkOutOfStoreSymlink "/home/sslozfer/nixos-config/dotfiles/hypr/hyprland.lua";
   
   # Rofi: copia de solo lectura en el store
-  xdg.configFile."rofi".source = ./dotfiles/rofi;
+  xdg.configFile."rofi" = {
+    source = ./dotfiles/rofi;
+    recursive = true;   # necesario para poder sumar el archivo de abajo
+  };
+  
+  xdg.configFile."rofi/stylix.rasi".text = with config.lib.stylix.colors; ''
+    * {
+        font:           "${config.stylix.fonts.monospace.name} ${toString config.stylix.fonts.sizes.popups}";
+        background:     #${base00};
+        background-alt: #${base01}80;
+        foreground:     #${base05};
+        selected:       #${base0D};
+        active:         #${base0E};
+        urgent:         #${base08};
+    }
+  '';
+
+  stylix.targets.firefox.enable = false;
+  stylix.targets.rofi.enable = false;
 }

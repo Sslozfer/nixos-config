@@ -59,7 +59,9 @@
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [];
   };
-
+  
+  security.sudo.wheelNeedsPassword = false;
+  
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -79,9 +81,24 @@
     options = "--delete-older-than 30d";
   };
 
+  nix.settings.auto-optimise-store = true;
+
   programs.hyprland.enable = true;
   programs.nix-ld.enable = true;
 
+  stylix = {
+    enable = true;
+    image = ./wallpapers/actual.jpg;
+    polarity = "dark";
+    opacity.terminal = 0.95;
+    fonts.sizes.terminal = 11;
+    fonts.monospace = {
+      package = pkgs.nerd-fonts.space-mono;
+      name = "SpaceMono Nerd Font";
+    };
+  };
+
+  
   # Steam necesita cosas a nivel sistema (drivers 32 bits, firewall, udev),
   # por eso se activa acá con `programs.steam` y no como paquete suelto.
   programs.steam.enable = true;

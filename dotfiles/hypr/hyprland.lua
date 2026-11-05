@@ -58,7 +58,7 @@ local menu        = "rofi -show drun"
 --
  hl.on("hyprland.start", function () 
      hl.exec_cmd("awww-daemon &")
-     hl.exec_cmd("awww img /home/sslozfer/Pictures/wallpapers/actual.jpg") 
+     hl.exec_cmd("awww img /home/sslozfer/nixos-config/wallpapers/actual.jpg") 
  end)
 
 
@@ -279,10 +279,10 @@ hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + B", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + P", hl.dsp.layout("togglesplit"))    -- dwindle only
-hl.bind(mainMod .. " + W", hl.dsp.exec_cmd("~/.local/bin/wallpaper-selector"))
+hl.bind(mainMod .. " + W", hl.dsp.exec_cmd("wallpaper-selector"))
 -- hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd("kitty --title micro_config -e micro ~/.config/hypr/hyprland.lua"))
 hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd("kitty --title micro_config -e micro ~/nixos-config/dotfiles/hypr/hyprland.lua"))
-hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.exec_cmd("kitty --title micro_config -e micro /etc/nixos/configuration.nix"))
+hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.exec_cmd("kitty --title micro_config -e micro ~/nixos-config/configuration.nix"))
 
 -- Move focus with mainMod + arrow keys
 hl.bind(mainMod .. " + left",  hl.dsp.focus({ direction = "left" }))
