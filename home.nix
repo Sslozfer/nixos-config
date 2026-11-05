@@ -14,7 +14,6 @@
     rofi
     btop
     fastfetch
-    yazi
     pulsemixer
     tty-clock
     wl-clipboard
@@ -40,6 +39,7 @@
   programs.kitty = {
     enable = true;
     settings = {
+      shell = "${pkgs.fish}/bin/fish";
       background_blur = 1;
       window_padding_width = 1;
       cursor_shape = "beam";
@@ -51,7 +51,30 @@
   };
 
   programs.firefox.enable = true;
+  
+  programs.micro = {
+      enable = true;
+  };
 
+  programs.yazi = {
+      enable = true;
+    };
+    
+  programs.fish = {
+        enable = true;
+        interactiveShellInit = ''
+            set fish_greeting
+          '';
+      };
+
+  programs.starship = {
+    enable = true;
+    presets = [
+      "nerd-font-symbols"
+    ];
+  };
+  
+                  
   # Hyprland: enlace a tu carpeta del repo, se edita sin rebuild
   xdg.configFile."hypr/hyprland.lua".source =
     config.lib.file.mkOutOfStoreSymlink "/home/sslozfer/nixos-config/dotfiles/hypr/hyprland.lua";
